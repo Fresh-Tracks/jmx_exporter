@@ -1,0 +1,7 @@
+---
+hostPort: localhost:7000
+username:
+password:
+rules:
+  - pattern: "org_apache_ZooKeeperService_StandaloneServer_port.*_WatchCount"
+  #- pattern: ".*"
