@@ -174,6 +174,7 @@ public class JmxScraper {
         // in the order they were added).
         LinkedHashMap<String, String> output = new LinkedHashMap<String, String>();
         String properties = mbeanName.getKeyPropertyListString();
+        //System.out.println(mbeanName);
         Matcher match = PROPERTY_PATTERN.matcher(properties);
         while (match.lookingAt()) {
             output.put(match.group(1), match.group(2));

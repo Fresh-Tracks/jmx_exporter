@@ -29,7 +29,8 @@ public class WebServer {
        socket = new InetSocketAddress(port);
      }
 
-     JmxCollector jc = new JmxCollector(new File(args[1])).register();
+     JmxCollector jc1 = new JmxCollector(new File(args[1])).register();
+     JmxCollector jc2 = new JmxCollector(new File(args[2])).register();
 
      Server server = new Server(socket);
      ServletContextHandler context = new ServletContextHandler();

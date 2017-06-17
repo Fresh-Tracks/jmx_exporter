@@ -27,6 +27,7 @@ import org.yaml.snakeyaml.Yaml;
 import static java.lang.String.format;
 
 public class JmxCollector extends Collector implements Collector.Describable {
+/*
     static final Counter configReloadSuccess = Counter.build()
       .name("jmx_config_reload_success_total")
       .help("Number of times configuration have successfully been reloaded.").register();
@@ -34,6 +35,7 @@ public class JmxCollector extends Collector implements Collector.Describable {
     static final Counter configReloadFailure = Counter.build()
       .name("jmx_config_reload_failure_total")
       .help("Number of times configuration have failed to be reloaded.").register();
+*/
 
     private static final Logger LOGGER = Logger.getLogger(JmxCollector.class.getName());
 
@@ -87,17 +89,17 @@ public class JmxCollector extends Collector implements Collector.Describable {
           Map<String, Object> newYamlConfig = (Map<String, Object>)new Yaml().load(fr);
           config = loadConfig(newYamlConfig);
           config.lastUpdate = configFile.lastModified();
-          configReloadSuccess.inc();
+          //configReloadSuccess.inc();
         } catch (Exception e) {
           LOGGER.severe("Configuration reload failed: " + e.toString());
-          configReloadFailure.inc();
+          //configReloadFailure.inc();
         } finally {
           fr.close();
         }
 
       } catch (IOException e) {
         LOGGER.severe("Configuration reload failed: " + e.toString());
-        configReloadFailure.inc();
+        //configReloadFailure.inc();
       }
     }
 
@@ -422,21 +424,21 @@ public class JmxCollector extends Collector implements Collector.Describable {
       List<MetricFamilySamples> mfsList = new ArrayList<MetricFamilySamples>();
       mfsList.addAll(receiver.metricFamilySamplesMap.values());
       List<MetricFamilySamples.Sample> samples = new ArrayList<MetricFamilySamples.Sample>();
-      samples.add(new MetricFamilySamples.Sample(
-          "jmx_scrape_duration_seconds", new ArrayList<String>(), new ArrayList<String>(), (System.nanoTime() - start) / 1.0E9));
-      mfsList.add(new MetricFamilySamples("jmx_scrape_duration_seconds", Type.GAUGE, "Time this JMX scrape took, in seconds.", samples));
+      //samples.add(new MetricFamilySamples.Sample(
+      //    "jmx_scrape_duration_seconds", new ArrayList<String>(), new ArrayList<String>(), (System.nanoTime() - start) / 1.0E9));
+      //mfsList.add(new MetricFamilySamples("jmx_scrape_duration_seconds", Type.GAUGE, "Time this JMX scrape took, in seconds.", samples));
 
       samples = new ArrayList<MetricFamilySamples.Sample>();
-      samples.add(new MetricFamilySamples.Sample(
-          "jmx_scrape_error", new ArrayList<String>(), new ArrayList<String>(), error));
-      mfsList.add(new MetricFamilySamples("jmx_scrape_error", Type.GAUGE, "Non-zero if this scrape failed.", samples));
+      //samples.add(new MetricFamilySamples.Sample(
+          //"jmx_scrape_error", new ArrayList<String>(), new ArrayList<String>(), error));
+      //mfsList.add(new MetricFamilySamples("jmx_scrape_error", Type.GAUGE, "Non-zero if this scrape failed.", samples));
       return mfsList;
     }
 
     public List<MetricFamilySamples> describe() {
       List<MetricFamilySamples> sampleFamilies = new ArrayList<MetricFamilySamples>();
-      sampleFamilies.add(new MetricFamilySamples("jmx_scrape_duration_seconds", Type.GAUGE, "Time this JMX scrape took, in seconds.", new ArrayList<MetricFamilySamples.Sample>()));
-      sampleFamilies.add(new MetricFamilySamples("jmx_scrape_error", Type.GAUGE, "Non-zero if this scrape failed.", new ArrayList<MetricFamilySamples.Sample>()));
+      //sampleFamilies.add(new MetricFamilySamples("jmx_scrape_duration_seconds", Type.GAUGE, "Time this JMX scrape took, in seconds.", new ArrayList<MetricFamilySamples.Sample>()));
+      //sampleFamilies.add(new MetricFamilySamples("jmx_scrape_error", Type.GAUGE, "Non-zero if this scrape failed.", new ArrayList<MetricFamilySamples.Sample>()));
       return sampleFamilies;
     }
 
